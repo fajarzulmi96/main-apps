@@ -1,0 +1,110 @@
+/* assets/css/styles.css */
+
+/* Global Styles */
+body {
+    padding-top: 56px; /* Adjust padding for fixed navbar */
+    font-family: 'Arial', sans-serif; /* Font for the whole site */
+    background-color: #f8f9fa; /* Light background color */
+    color: #343a40; /* Dark text color */
+    line-height: 1.6; /* Line height for better readability */
+}
+
+.container {
+    max-width: 1200px; /* Limit the width of the container */
+    margin: auto; /* Center align container */
+}
+
+/* Navbar */
+.navbar {
+    border-bottom: 1px solid #dee2e6; /* Border below the navbar */
+}
+
+/* Cards */
+.card {
+    border-radius: 0.5rem; /* Rounded corners for cards */
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1); /* Subtle shadow */
+}
+
+.card-header {
+    background-color: #007bff; /* Primary color for card headers */
+    color: white; /* White text color */
+    font-weight: bold; /* Bold font */
+}
+
+/* Form Styles */
+.form-control {
+    border-radius: 0.25rem; /* Rounded corners for input fields */
+    box-shadow: inset 0 0 0 1px #ced4da; /* Subtle inner shadow */
+}
+
+.btn-primary {
+    background-color: #007bff; /* Primary button color */
+    border-color: #007bff; /* Border color */
+    border-radius: 0.25rem; /* Rounded corners */
+}
+
+.btn-primary:hover {
+    background-color: #0056b3; /* Darker color on hover */
+    border-color: #004085; /* Darker border color on hover */
+}
+
+/* Table Styles */
+.table {
+    border-collapse: separate; /* Separate borders for cells */
+    border-spacing: 0; /* Remove spacing between cells */
+}
+
+.table-bordered {
+    border: 1px solid #dee2e6; /* Border around the table */
+}
+
+.table thead th {
+    background-color: #007bff; /* Background color for table header */
+    color: white; /* White text color */
+    font-weight: bold; /* Bold font */
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #f2f2f2; /* Alternating row colors */
+}
+
+.table tbody tr:hover {
+    background-color: #e9ecef; /* Highlight row on hover */
+}
+
+/* Footer */
+.footer {
+    background-color: #343a40; /* Dark background for footer */
+    color: white; /* White text color */
+    padding: 1rem; /* Padding inside footer */
+    text-align: center; /* Center align text */
+}
+
+.footer a {
+    color: #ffffff; /* White color for footer links */
+}
+
+.footer a:hover {
+    color: #007bff; /* Highlight color for links on hover */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0.5rem 1rem; /* Adjust navbar padding on smaller screens */
+    }
+
+    .container {
+        padding: 0 1rem; /* Add horizontal padding to container */
+    }
+}
+
+@media (max-width: 576px) {
+    .form-control, .btn-primary {
+        font-size: 0.875rem; /* Smaller font size for smaller screens */
+    }
+
+    .card {
+        margin: 0.5rem 0; /* Reduce card margin on smaller screens */
+    }
+}
