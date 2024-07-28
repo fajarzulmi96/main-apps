@@ -35,6 +35,10 @@
                         <label for="quantity">Quantity:</label>
                         <input type="number" id="quantity" name="quantity" class="form-control" required>
                     </div>
+                    <div class="form-group">
+                        <label for="description">Description:</label>
+                        <textarea id="description" name="description" class="form-control" rows="3" required></textarea>
+                    </div>
                     <button type="submit" class="btn btn-primary">Create</button>
                 </form>
             </div>
@@ -63,6 +67,7 @@
                             <th>Name</th>
                             <th>Price</th>
                             <th>Quantity</th>
+                            <th>Description</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -73,6 +78,7 @@
                                 <td><?php echo htmlspecialchars($row['name']); ?></td>
                                 <td><?php echo htmlspecialchars($row['price']); ?></td>
                                 <td><?php echo htmlspecialchars($row['quantity']); ?></td>
+                                <td><?php echo htmlspecialchars($row['description']); ?></td>
                                 <td>
                                     <a href="?action=update&id=<?php echo htmlspecialchars($row['id']); ?>" class="btn btn-warning btn-sm">Update</a>
                                     <a href="../controllers/product_delete.php?id=<?php echo htmlspecialchars($row['id']); ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this product?');">Delete</a>
@@ -112,6 +118,10 @@
                             <div class="form-group">
                                 <label for="quantity">Quantity:</label>
                                 <input type="number" id="quantity" name="quantity" class="form-control" value="<?php echo htmlspecialchars($product_data['quantity']); ?>" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Description:</label>
+                                <textarea id="description" name="description" class="form-control" rows="3" required></textarea>
                             </div>
                             <button type="submit" class="btn btn-primary">Update</button>
                         </form>

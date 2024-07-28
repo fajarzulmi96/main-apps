@@ -2,26 +2,35 @@
 include_once '../classes/Database.php';
 include_once '../models/Product.php';
 
+// Create a new Database instance and get the connection
 $database = new Database();
 $db = $database->getConnection();
 $product = new Product($db);
 
-// Periksa apakah data POST ada
+// Check if the request method is POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Debugging: Periksa data POST
+    // For debugging: Print POST data
     echo '<pre>';
     print_r($_POST);
     echo '</pre>';
 
-    $product->id = isset($_POST['id']) ? $_POST['id'] : null;
-    $product->name = isset($_POST['name']) ? $_POST['name'] : null;
-    $product->price = isset($_POST['price']) ? $_POST['price'] : null;
-    $product->quantity = isset($_POST['quantity']) ? $_POST['quantity'] : null;
+    // Get data from POST
+    $id = isset($_POST['id']) ? $_POST['id'] : null;
+    $name = isset($_POST['name']) ? $_POST['name'] : null;
+    $price = isset($_POST['price']) ? $_POST['price'] : null;
+    $quantity = isset($_POST['quantity']) ? $_POST['quantity'] : null;
+    $description = isset($_POST['description']) ? $_POST['description'] : null;
 
-    // Perbarui produk
+    // Set values to Product object
+    $product->id = $id;
+    $product->name = $name;
+    $product->price = $price;
+    $product->quantity = $quantity;
+    $product->description = $description;
+
+    // Update the product
     if ($product->update()) {
-        header("Location: ../views/product_view.php"); // Arahkan ke halaman daftar produk
-        exit(); // Pastikan untuk menghentikan eksekusi lebih lanjut
+        echo "Product updated successfully.";
     } else {
         echo "Unable to update product.";
     }

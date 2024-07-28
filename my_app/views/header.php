@@ -31,9 +31,6 @@
                     <a class="nav-link" href="product_view.php">Products</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="view_package.php">Sales Package</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="dashboard.php">Dashboard</a>
                 </li>
             </ul>

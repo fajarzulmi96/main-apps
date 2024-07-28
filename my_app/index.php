@@ -13,8 +13,6 @@ if (strpos($request_uri, '/create') !== false) {
     require_once 'controllers/product_update.php';
 } elseif (strpos($request_uri, '/delete') !== false) {
     require_once 'controllers/product_delete.php';
-} elseif (strpos($request_uri, '/linear-programming') !== false) {
-    require_once 'controllers/linear_programming_result.php';
 } else {
     switch ($request_uri) {
         case '/':

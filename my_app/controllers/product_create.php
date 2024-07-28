@@ -12,27 +12,35 @@ $product = new Product($db);
 // Determine if data is being sent as JSON or from a form
 $isJsonRequest = strpos($_SERVER['CONTENT_TYPE'], 'application/json') !== false;
 
-// Handle JSON request
 if ($isJsonRequest) {
+    // Handle JSON request
     $data = json_decode(file_get_contents("php://input"));
-    $product->name = $data->name;
-    $product->price = $data->price;
-    $product->quantity = $data->quantity;
 
-    $response = $product->create(); // Call create method
+    // Set values to Product object
+    $product->name = isset($data->name) ? $data->name : null;
+    $product->price = isset($data->price) ? $data->price : null;
+    $product->quantity = isset($data->quantity) ? $data->quantity : null;
+    $product->description = isset($data->description) ? $data->description : null;
+
+    // Create the product
+    $response = $product->create() ? ["message" => "Product created successfully."] : ["message" => "Unable to create product."];
     echo json_encode($response);
-}
-// Handle form submission
-else {
-    $product->name = $_POST['name'];
-    $product->price = $_POST['price'];
-    $product->quantity = $_POST['quantity'];
 
+} else if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Handle form submission
+    $product->name = isset($_POST['name']) ? $_POST['name'] : null;
+    $product->price = isset($_POST['price']) ? $_POST['price'] : null;
+    $product->quantity = isset($_POST['quantity']) ? $_POST['quantity'] : null;
+    $product->description = isset($_POST['description']) ? $_POST['description'] : null;
+
+    // Create the product
     if ($product->create()) {
         header("Location: ../views/product_view.php");
         exit(); // Ensure no further code is executed after redirect
     } else {
         echo "Unable to create product.";
     }
+} else {
+    echo "Invalid request.";
 }
 ?>
