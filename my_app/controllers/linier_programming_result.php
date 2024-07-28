@@ -1,45 +1,53 @@
 <?php
-require '../vendor/autoload.php';
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
+$file = '../constraints.json'; // Jalur relatif dari file ini ke constraints.json
+
+if (file_exists($file)) {
+    $constraints = json_decode(file_get_contents($file), true);
+} else {
+    $constraints = [
+        'budget' => 100,
+        'maxA' => 10,
+        'maxB' => 8,
+        'maxC' => 12
+    ];
+}
+
+// Contoh perhitungan linear programming
+require '../vendor/autoload.php';
 use PhpSolver\LinearProgramming\Solver;
 
-// Define the coefficients for the objective function
-$objectiveFunction = [7, 10, 8]; // Coefficients for xA, xB, xC
+$objectiveFunction = [7, 10, 8];
 
-// Define the constraints matrix (coefficients for xA, xB, xC)
-$constraints = [
-    [5, 8, 6], // Coefficient for the budget
-    [1, 0, 0], // Constraint for product A
-    [0, 1, 0], // Constraint for product B
-    [0, 0, 1]  // Constraint for product C
+$constraintsMatrix = [
+    [5, 8, 6],
+    [1, 0, 0],
+    [0, 1, 0],
+    [0, 0, 1]
 ];
 
-// Define the bounds for the constraints
 $bounds = [
-    '<=', 100, // Budget constraint
-    '<=', 10,  // Product A max demand
-    '<=', 8,   // Product B max demand
-    '<=', 12   // Product C max demand
+    '<=' => $constraints['budget'],
+    '<=' => $constraints['maxA'],
+    '<=' => $constraints['maxB'],
+    '<=' => $constraints['maxC']
 ];
 
-// Create the solver instance
 $solver = new Solver();
-
-// Set the coefficients and constraints
 $solver->setObjective($objectiveFunction);
-$solver->setConstraints($constraints, $bounds);
+$solver->setConstraints($constraintsMatrix, array_values($bounds));
 
-// Solve the problem
 $result = $solver->solve();
 
-// Extract the results
-$solution = $result['solution']; // Optimal values for xA, xB, xC
-$optimalValue = $result['objective_value']; // Optimal value of the objective function
+$solution = $result['solution'];
+$optimalValue = $result['objective_value'];
 
-// Return the results as JSON
 header('Content-Type: application/json');
 echo json_encode([
     'solution' => $solution,
-    'optimal_value' => $optimalValue
+    'optimal_value' => $optimalValue,
+    'constraints' => $constraints
 ]);
 ?>

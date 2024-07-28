@@ -1,12 +1,14 @@
 <?php
-// Get input data from POST request
 $data = json_decode(file_get_contents('php://input'), true);
 
-// For simplicity, assume these values are stored somewhere (e.g., database or file)
-// Example response for demonstration purposes
+$file = '../constraints.json'; // Jalur relatif dari file ini ke constraints.json
+
+file_put_contents($file, json_encode($data));
+
 header('Content-Type: application/json');
 echo json_encode([
     'status' => 'success',
+    'message' => 'Constraints updated successfully',
     'constraints' => $data
 ]);
 ?>

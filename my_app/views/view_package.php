@@ -45,60 +45,61 @@ include 'header.php';
 
     <!-- JavaScript -->
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Function to fetch results from the server
-            function fetchResults() {
-                fetch('controllers/linear_programming_result.php')
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok ' + response.statusText);
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        console.log('Results:', data); // Debugging output
-                        document.getElementById('results').textContent = JSON.stringify(data, null, 2);
-                    })
-                    .catch((error) => {
-                        console.error('Error fetching results:', error);
-                        document.getElementById('results').textContent = 'Error fetching results.';
-                    });
-            }
-
-            // Event listener for form submission
-            document.getElementById('constraintsForm').addEventListener('submit', function(event) {
-                event.preventDefault();
-
-                const budget = document.getElementById('budget').value;
-                const maxA = document.getElementById('maxA').value;
-                const maxB = document.getElementById('maxB').value;
-                const maxC = document.getElementById('maxC').value;
-
-                fetch('controllers/update_constraints.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        budget: budget,
-                        maxA: maxA,
-                        maxB: maxB,
-                        maxC: maxC
-                    }),
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Constraints updated successfully:', data);
-                    fetchResults(); // Refresh results after updating constraints
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                });
+    document.addEventListener('DOMContentLoaded', () => {
+    // Function to fetch results from the server
+    function fetchResults() {
+        fetch('controllers/linear_programming_result.php')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Results:', data); // Debugging output
+                document.getElementById('results').textContent = JSON.stringify(data, null, 2);
+            })
+            .catch((error) => {
+                console.error('Error fetching results:', error);
+                document.getElementById('results').textContent = 'Error fetching results: ' + error.message;
             });
+    }
 
-            // Initial fetch of results when the page loads
-            fetchResults();
+    // Event listener for form submission
+    document.getElementById('constraintsForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const budget = document.getElementById('budget').value;
+        const maxA = document.getElementById('maxA').value;
+        const maxB = document.getElementById('maxB').value;
+        const maxC = document.getElementById('maxC').value;
+
+        fetch('controllers/update_constraints.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                budget: budget,
+                maxA: maxA,
+                maxB: maxB,
+                maxC: maxC
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Constraints updated successfully:', data);
+            fetchResults(); // Refresh results after updating constraints
+        })
+        .catch((error) => {
+            console.error('Error:', error);
         });
+    });
+
+    // Initial fetch of results when the page loads
+    fetchResults();
+});
+
     </script>
 </body>
 </html>
