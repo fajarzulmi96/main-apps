@@ -45,7 +45,7 @@
             $totalSales += $totalValue;
             $totalQuantity += $quantity;
 
-            $productNames[] = $name;
+            $productNames[] = $description;
             $productQuantities[] = $quantity;
             $productPrices[] = $price;
             $productTotalValues[] = $totalValue;
@@ -56,10 +56,11 @@
         <div class="card mb-4">
             <div class="card-header">
                 Grafik Penjualan Barang
-                <div id="totalSales" class="mt-2"></div> <!-- Menampilkan total nilai barang untuk bar chart -->
+                <div id="totalSales" class="mt-2"></div>
             </div>
             <div class="card-body">
                 <canvas id="barChart"></canvas>
+                <p id="barChartDescription" class="mt-3">Deskripsi untuk grafik penjualan barang.</p>
             </div>
         </div>
 
@@ -67,10 +68,11 @@
         <div class="card mb-4">
             <div class="card-header">
                 Grafik Distribusi Total Nilai Barang
-                <div id="totalPie" class="mt-2"></div> <!-- Menampilkan total nilai barang untuk pie chart -->
+                <div id="totalPie" class="mt-2"></div>
             </div>
             <div class="card-body">
                 <canvas id="pieChart"></canvas>
+                <p id="pieChartDescription" class="mt-3">Deskripsi untuk grafik distribusi total nilai barang.</p>
             </div>
         </div>
     </div>
@@ -124,7 +126,7 @@
         });
 
         // Calculate total sales for pie chart and update the totalPie element
-        var totalPie = totalSales; // Total sales is the same for the pie chart
+        var totalPie = totalSales;
         document.getElementById('totalPie').innerText = 'Total Nilai Barang: Rp ' + totalPie.toFixed(2);
 
         // Pie Chart
@@ -161,7 +163,9 @@
                         formatter: function(value, context) {
                             return 'Rp ' + value.toFixed(2);
                         },
-                        color: '#fff'
+                        color: '#fff',
+                        anchor: 'center',
+                        align: 'center'
                     }
                 }
             }
